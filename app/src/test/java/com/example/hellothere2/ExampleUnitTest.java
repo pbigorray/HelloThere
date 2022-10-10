@@ -1,4 +1,4 @@
-package com.example.aplication_inicial;
+package com.example.hellothere2;
 
 import org.junit.Test;
 

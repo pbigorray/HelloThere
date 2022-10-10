@@ -1,8 +1,10 @@
-package com.example.aplication_inicial;
+package com.example.hellothere2;
 
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,11 +13,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     Button b;
     TextView t;
+    private Vibrator vibrator;
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "Start", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Start", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -23,17 +26,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "Create", Toast.LENGTH_SHORT).show();
+        Toast toast= Toast.makeText(this, "Hola", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP,0,200);
+        toast.show();
 
         t=findViewById(R.id.texto);
         b=findViewById(R.id.pulsador);
+        vibrator=((Vibrator) getSystemService(VIBRATOR_SERVICE));
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (t.getText()=="Hello there!"){
-                    t.setText("Bye!");
+                if (!vibrator.hasVibrator()){
+                    Toast.makeText(MainActivity.this, "No Vibrator", Toast.LENGTH_SHORT).show();
                 }else {
-                    t.setText("Hello there!");
+                    vibrator.vibrate(500);
+                }
+                if (t.getText()==getString(R.string.texto1)){
+                    t.setText(getString(R.string.texto2));
+                }else {
+                    t.setText(getString(R.string.texto1));
                 }
             }
         });
@@ -45,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "Resume", Toast.LENGTH_SHORT).show();
+        Toast toast= Toast.makeText(this, "Adios", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,200);
+        toast.show();
     }
 
     @Override
